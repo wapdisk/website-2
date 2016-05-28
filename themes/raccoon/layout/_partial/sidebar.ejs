@@ -1,0 +1,10 @@
+
+
+<aside class="sidebar">
+  <a href="<%- url_for() %>" class="logo">
+    <img class="logo__image" src="<%- url_for() %>images\new-raccoon-logo.svg" alt="" />
+  </a>
+  <% theme.widgets.forEach(function(widget){ %>
+    <%- partial('_widget/' + widget) %>
+  <% }) %>
+</aside>

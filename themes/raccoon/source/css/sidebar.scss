@@ -1,0 +1,6 @@
+.sidebar {
+  @extend %block-full-bound;
+  background-color: #fff;
+  border-left: 1rem solid $color-white-gray;
+  height: 100%;
+}

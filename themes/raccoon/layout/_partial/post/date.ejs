@@ -1,0 +1,6 @@
+<a href="<%- url_for(post.path) %>" class="article__link">
+  <i class="fa fa-calendar-o"></i>
+  <time datetime="<%= date_xml(post.date) %>" itemprop="datePublished">
+    <%= date(post.date, 'LL') %>
+  </time>
+</a>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Arimo:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+    <%- css('css/style') %>
+</head>
+<body>
+  <aside>
+    <img class="logo" src="http://jsraccoon.ru/images/logo-raccoon.svg" alt="" />
+  </aside>
+  <main class="container">
+    <div class="articles">
+    <% page.posts.forEach(function(post, index) { %>
+      <article class="article">
+        <header class="article__header">
+          <h2 class="article__title">
+            <a class="article__link" href=<%= post.path %>>
+              <%- post.title %>
+            </a>
+          </h2>
+        </header>
+        <div class="article__body">
+          <%- post.excerpt %>
+        </div>
+
+        <footer class="article__footer">
+          <span class="article__meta">
+            <i class="fa fa-pencil"></i><%= site.data.authors[post.author].name %>
+          </span>
+          <span class="article__meta">
+            <i class="fa fa-calendar-o"></i><%= post.date.format('LL') %>
+          </span>
+        </footer>
+      </article>
+    <% }) %>
+    </div>
+  </main>
+
+</body>
+</html>

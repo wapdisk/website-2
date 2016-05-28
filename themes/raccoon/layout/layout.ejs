@@ -1,0 +1,21 @@
+<%- partial('_partial/head') %>
+<body>
+
+  <section class="wrapper grid-noGutter">
+    <main class="col-9_md-8_sm-12">
+      <%- body %>
+    </main>
+
+
+    <div class="col-3_md-4_sm-12">
+      <%- partial('_partial/sidebar', null, {cache: !config.relative_link}) %>
+    </div>
+
+  </section>
+
+  <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
+
+  <%- partial('_partial/mobile-nav', null, {cache: !config.relative_link}) %>
+  <%- partial('_partial/after-footer') %>
+</body>
+</html>

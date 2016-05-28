@@ -1,0 +1,64 @@
+$block-spacing: (
+  small: (vertical: 2rem, horizontal: 2.5rem),
+  medium: (vertical: 3rem, horizontal: 4.5rem),
+  large: (vertical: 5rem, horizontal: 6rem)
+);
+
+@function get-spacing($size, $side) {
+  @return map-get(map-get($block-spacing, $size), $side);
+}
+
+@function get-full-spacing($size) {
+  @return get-spacing($size, vertical) get-spacing($size, horizontal);
+}
+
+%block-full-bound {
+  padding: get-full-spacing(small);
+
+  @include larger-than-small {
+    padding: get-full-spacing(medium);
+  }
+
+  @include larger-than-medium {
+    padding: get-full-spacing(large);
+  }
+}
+
+%block-unbound-left {
+  margin-left: get-spacing(small, horizontal) * -1;
+
+  @include larger-than-small {
+    margin-left: get-spacing(medium, horizontal) * -1;
+  }
+
+  @include larger-than-medium {
+    margin-left: get-spacing(large, horizontal) * -1;
+  }
+}
+
+%block-unbound-right {
+  margin-right: get-spacing(small, horizontal) * -1;
+
+  @include larger-than-small {
+    margin-right: get-spacing(medium, horizontal) * -1;
+  }
+
+  @include larger-than-medium {
+    margin-right: get-spacing(large, horizontal) * -1; 
+  }
+}
+
+%block-unbound-horizontal {
+  margin-right: get-spacing(small, horizontal) * -1;
+  margin-left: get-spacing(small, horizontal) * -1;
+
+  @include larger-than-small {
+    margin-right: get-spacing(medium, horizontal) * -1;
+    margin-left: get-spacing(medium, horizontal) * -1;
+  }
+
+  @include larger-than-medium {
+    margin-right: get-spacing(large, horizontal) * -1;
+    margin-left: get-spacing(large, horizontal) * -1;
+  }
+}

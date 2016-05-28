@@ -1,0 +1,10 @@
+<% if (site.posts.length){ %>
+  <div class="widget">
+    <h3 class="widget__title">Новые публикации</h3>
+    <div class="widget__body">
+      <% site.posts.sort('date', -1).limit(5).each(function(post){ %>
+        <a class="widget__link" href="<%- url_for(post.path) %>"><%= post.title || '(no title)' %></a>
+      <% }) %>
+    </div>
+  </div>
+<% } %>
