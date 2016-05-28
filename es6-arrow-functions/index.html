@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ES6: стрелочные функции | Frontend Raccoon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="На первый взгляд может показаться, что стрелочные функции являются исключительно “синтаксическим сахаром” и не несут в себе никакой новой функциональности. Действительно, их использование выглядит оче">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6: стрелочные функции">
+<meta property="og:url" content="http://jsraccon.github.io/es6-arrow-functions/index.html">
+<meta property="og:site_name" content="Frontend Raccoon">
+<meta property="og:description" content="На первый взгляд может показаться, что стрелочные функции являются исключительно “синтаксическим сахаром” и не несут в себе никакой новой функциональности. Действительно, их использование выглядит оче">
+<meta property="og:updated_time" content="2016-05-22T13:50:11.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6: стрелочные функции">
+<meta name="twitter:description" content="На первый взгляд может показаться, что стрелочные функции являются исключительно “синтаксическим сахаром” и не несут в себе никакой новой функциональности. Действительно, их использование выглядит оче">
+  
+    <link rel="alternate" href="/atom.xml" title="Frontend Raccoon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href='https://fonts.googleapis.com/css?family=Arimo:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="/website/css/style.css">
+  
+
+</head>
+
+<body>
+
+  <section class="wrapper grid-noGutter">
+    <main class="col-9_md-8_sm-12">
+      <article id="post-es6-arrow-functions" class="article" itemscope itemprop="blogPost">
+  <header class="article__header">
+    <h2 class="article__title" itemprop="name">
+  <a class="article__link" href="/website/es6-arrow-functions/">ES6: стрелочные функции</a>
+</h2>
+
+    <div class="article__meta">
+      <a href="/website/es6-arrow-functions/" class="article__link">
+  <i class="fa fa-calendar-o"></i>
+  <time datetime="2016-03-14T00:00:00.000Z" itemprop="datePublished">
+    14 Марта 2016 г.
+  </time>
+</a>
+
+      <a class="article__link" href="#0">
+  <i class="fa fa-pencil article__icon"></i>
+
+  Виталий Ртищев
+</a>
+
+    </div>
+  </header>
+
+  <div class="article__body">
+    <div class="article__content">
+      
+        <p>На первый взгляд может показаться, что стрелочные функции являются исключительно “синтаксическим сахаром” и <a href="/">не несут в себе никакой</a> новой функциональности. Действительно, их использование выглядит очень удобным и значительно соркащает объемы необходимого кода, особенно если вы сторонник функционального JavaScript:<br><a id="more"></a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// раньше</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [].reduce.call(<span class="built_in">arguments</span>, <span class="function"><span class="keyword">function</span>(<span class="params">m, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> m + n;</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// сейчас</span></span><br><span class="line"><span class="keyword">var</span> sum = (...args) =&gt; args.reduce((m, n) =&gt; m + n, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>Чтобы разобраться с новой синтаксической конструкцией, рассмотрим простую функцию <code>add</code>, которая возвращает сумму двух переданных ей аргументов:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// раньше</span></span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// сейчас</span></span><br><span class="line"><span class="keyword">var</span> add = (a, b) =&gt; a + b;</span><br></pre></td></tr></table></figure>
+<p>Создание стрелочной функции состоит из имени <code>add</code>, передаваемых ей параметров <code>(a, b)</code> и тела функции <code>a + b</code>.</p>
+<h2 id="Объявление"><a href="#Объявление" class="headerlink" title="Объявление"></a>Объявление</h2><p>Все стрелочные функции создаются с помощью <em>function expression</em>, то есть они всегда будут эквиваленты следующему ES5 коду:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function expression: два способа в ES6</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="number">42</span>; &#125;</span><br><span class="line"><span class="keyword">var</span> f = () =&gt; <span class="number">42</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function declaration: один способ в ES6</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">42</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Поэтому следует помнить, что перед использованием стрелочной функции её всегда необходимо создать заранее.</p>
+<h2 id="Параметры"><a href="#Параметры" class="headerlink" title="Параметры"></a>Параметры</h2><p>Обычно параметры помещаются в круглые скобки <code>(a, b)</code>. Если необходимо передать функции всего один параметр, то круглые скобки можно не использовать <code>var f = x =&gt; x * 2</code>, но лучше подобную возможность не использовать и всегда окружать параметр скобками <code>var f = (x) =&gt; x * 2</code>, чтобы избежать недопонимания. В случае, если в параметрах нет необходимости, объявление функции будет выглядеть следующим образом:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = () =&gt; <span class="number">42</span>;</span><br><span class="line"></span><br><span class="line">f(); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Тело-функции"><a href="#Тело-функции" class="headerlink" title="Тело функции"></a>Тело функции</h2><p>В случае, когда необходимо выполнить всего одну инструкцию (как во всех примерах, рассмотренных выше) достаточно просто указать эту инструкцию, как тело функции:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = (a, b) =&gt; a + b; <span class="comment">// возвращает a + b</span></span><br></pre></td></tr></table></figure></p>
+<p>В ситуациях, когда одной инструкции оказывается недостаточно, тело функции необходимо заключить в фигурные скобки <code>{ ... }</code> и пользовать ключевым словом <code>return</code>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> g = (a, b) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> m = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="built_in">parseInt</span>(a));</span><br><span class="line">  <span class="keyword">return</span> b + m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Все возможности обычных функций могут быть использованы и со стрелочными, включая <a href="http://jsraccoon.ru/es6-defaults/" target="_blank" rel="external">параметры по умолчанию</a>, <a href="http://jsraccoon.ru/es6-spread-rest/" target="_blank" rel="external">остаточные параметры</a>, <a href="http://jsraccoon.ru/es6-destructuring/" target="_blank" rel="external">реструктурирующее присваивание</a> и так далее.</p>
+<h2 id="Анонимные-функции"><a href="#Анонимные-функции" class="headerlink" title="Анонимные функции"></a>Анонимные функции</h2><p>Чаще всего анонимные стрелочные функции используются при итерациях по элементам массивов с методами <code>map</code>, <code>forEach</code>, <code>reduce</code>, <code>filter</code> и другими:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> double = (arr) =&gt; arr.map( item =&gt; item * <span class="number">2</span> );</span><br><span class="line">double([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]); <span class="comment">// [2, 4, 6, 8]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> filter = (arr) =&gt; arr.filter( item =&gt; !!item );</span><br><span class="line">filter([<span class="literal">false</span>, <span class="literal">undefined</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="string">'str'</span>]); <span class="comment">// [1, "str"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sum = (...args) =&gt; args.reduce((m, n) =&gt; m + n, <span class="number">0</span>);</span><br><span class="line">sum(<span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>); <span class="comment">// 45</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="this-больше-не-проблема"><a href="#this-больше-не-проблема" class="headerlink" title="this больше не проблема"></a>this больше не проблема</h2><p>Главная причина появления стрелочных функций в ES6 — недопонимание, которое возникает у большинства разработчиков при работе с ключевым словом <code>this</code>. Чтобы понять, что же такого чудесного принесли с собой стрелочные функции рассмотрим простой пример:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  btn: <span class="built_in">document</span>.links[<span class="number">0</span>],</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span> (<span class="params">message</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(message);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    self.btn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      self.log(<span class="string">'Button Clicked!'</span>);</span><br><span class="line">    &#125;, <span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Чтобы выполнить какой-либо метод из объекта до появления стрелочных функций необходимо было воспользоваться одним из методов замены ключевого слова <code>this</code>: как в этом примере записать его в переменную <code>self</code>, или воспользоваться методом функций <code>bind</code>. Данные способы, несмоненно, работали, но выглядели достаточно скверно и могли смутить других разработчиков, которые попытались бы разобраться в коде. Стрелочные функции полностью решают данную проблему. Теперб код, приведённый выше, будет выглядеть следующим образом:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  btn: <span class="built_in">document</span>.links[<span class="number">0</span>],</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(message);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.btn.addEventListener(<span class="string">'click'</span>, () =&gt; <span class="keyword">this</span>.log(<span class="string">'Button Clicked!'</span>), <span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Наиболее подробное описание принципов работы стрелочных функций с ключевым словом <code>this</code> можно найти в <a href="http://blog.getify.com/arrow-this/" target="_blank" rel="external">этой статье</a>.</p>
+
+      
+    </div>
+
+  </div>
+
+  <footer class="article__footer">
+    
+
+    
+  <div class="article__tags">
+    <a class="tag-link" href="/website/tags/ES6/">ES6</a><a class="tag-link" href="/website/tags/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </footer>
+  </div>
+</article>
+
+
+
+    </main>
+
+
+    <div class="col-3_md-4_sm-12">
+      
+
+<aside class="sidebar">
+  <a href="/website/" class="logo">
+    <img class="logo__image" src="/website/images\new-raccoon-logo.svg" alt="" />
+  </a>
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/website/categories/Статья/">Статья</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/website/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/website/tags/FN/">FN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/website/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/website/tags/OOP/">OOP</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">tagcloud</h3>
+    <div class="widget tagcloud">
+      <a href="/website/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/website/tags/FN/" style="font-size: 10px;">FN</a> <a href="/website/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/website/tags/OOP/" style="font-size: 15px;">OOP</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive_a</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/website/archives/2016/04/">Апрель 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/website/archives/2016/03/">Март 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget">
+    <h3 class="widget__title">Новые публикации</h3>
+    <div class="widget__body">
+      
+        <a class="widget__link" href="/website/fn-array-methods/">Перебирающие методы массивов изнутри</a>
+      
+        <a class="widget__link" href="/website/oop-objects-vs-primitives/">Объектно-ориентированный JavaScript: примитивы и объекты</a>
+      
+        <a class="widget__link" href="/website/oop-example-validation/">Объектно-ориентированный JavaScript: немного практики</a>
+      
+        <a class="widget__link" href="/website/es6-arrow-functions/">ES6: стрелочные функции</a>
+      
+    </div>
+  </div>
+
+
+  
+</aside>
+
+    </div>
+
+  </section>
+
+  <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Vitaly Rtishchev<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  <nav id="mobile-nav">
+  
+    <a href="/website/" class="mobile-nav-link">Home</a>
+  
+    <a href="/website/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/website/fancybox/jquery.fancybox.css">
+  <script src="/website/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/website/js/script.js"></script>
+
+</body>
+</html>
